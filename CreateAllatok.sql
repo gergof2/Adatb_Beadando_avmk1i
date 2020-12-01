@@ -2,7 +2,7 @@ drop table allatok;
 
 create table allatok
 (
-	idszam int(4) not null,
+	idszam char(4) not null,
 	faj char(200) not null,
 	nem char(20) not null,
 	etkezes char(20) not null,
