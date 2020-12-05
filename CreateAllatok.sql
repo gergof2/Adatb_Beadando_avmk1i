@@ -6,6 +6,7 @@ create table allatok
 	faj char(200) not null,
 	nem char(20) not null,
 	etkezes char(20) not null,
+	ar int not null,
 	bolt_id int not null,
 
 	constraint pk_allatok primary key(idszam),
