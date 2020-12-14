@@ -57,6 +57,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Manager\AllatokTabla.cs" />
+    <Compile Include="Models\Manager\DatabaseConnection.cs" />
     <Compile Include="Models\Records\Allatok.cs" />
     <Compile Include="Nem.cs" />
     <Compile Include="Program.cs" />

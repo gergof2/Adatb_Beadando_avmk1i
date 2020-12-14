@@ -8,83 +8,81 @@ namespace AllatBolt.Models.Records
 {
     class Allatok
     {
-        private string allat_id;
-        public string Allat_id
+        private string _idszam;
+        public string idszam
         {
-            get { return allat_id; }
+            get { return _idszam; }
             set
             {
                 if (value == null)
                     throw new Exception("Az id nem lehet üres!");
                 else if (value.Length != 4)
                     throw new ArgumentOutOfRangeException("Az id-nek 4 karakterből kell állnia!");
-                allat_id = value;
+                _idszam = value;
             }
         }
 
-        private string faj;
-        public string Faj
+        private string _faj;
+        public string faj
         {
-            get { return faj; }
+            get { return _faj; }
             set 
             {
                 if (value == null)
                     throw new Exception("Nem lehet üres a mező!");
                 else if (value.Length > 200)
                     throw new ArgumentOutOfRangeException("A faj maximum 200 karakter hosszú lehet!");
-                faj = value;
+                _faj = value;
             }
         }
 
-        private string nem;
-        public string Nem
+        private string _nem;
+        public string nem
         {
-            get { return nem; }
+            get { return _nem; }
             set
             {
                 if (value == null)
                     throw new Exception("Nem lehet üres a mező!");
                 else if (value.Length > 20)
                     throw new ArgumentOutOfRangeException("A nem max 20 karakterből állhat!");
-                nem = value;
+                _nem = value;
             }
         }
 
-        private string etkezes;
-        public string Etkezes
+        private string _etkezes;
+        public string etkezes
         {
-            get { return etkezes; }
+            get { return _etkezes; }
             set
             {
                 if (value == null)
                     throw new Exception("A mező nem lehet üres!");
                 else if (value.Length > 20)
                     throw new ArgumentOutOfRangeException("Az étkezés mező maximum 20 karakterből állhat!");
-                etkezes = value;
+                _etkezes = value;
             }
         }
 
-        private int ar;
-        public int Ar
+        private string _ar;
+        public string ar
         {
-            get { return ar; }
+            get { return _ar; }
             set
             {
-                if (value == 0)
+                if (value.Length == 0)
                     throw new Exception("Nincs ingyen elvihető állat!");
-                ar = value;
+                _ar = value;
             }
         }
 
-        private string bolt;
-        public string Bolt
+        private int _bolt_id;
+        public int bolt_id
         {
-            get { return bolt; }
+            get { return _bolt_id; }
             set
             {
-                if (value == null)
-                    throw new Exception("A mező nem lehet üres!");
-                bolt = value;
+                _bolt_id = value;
             }
         }
     }

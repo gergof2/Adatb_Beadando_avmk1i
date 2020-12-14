@@ -11,7 +11,7 @@ begin
 	if p_idszam is null then
 		return 0;
 	end if;
-	if lenght(trim(p_idszam)) = 4 then
+	if length(trim(p_idszam)) = 4 then
 		v_i := 1;
 		while v_i <= 4 loop
 			v_idszam_int := substr(p_idszam, v_i, 1);

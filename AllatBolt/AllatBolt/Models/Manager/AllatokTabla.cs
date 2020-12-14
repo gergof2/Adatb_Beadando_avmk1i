@@ -8,12 +8,12 @@ using AllatBolt.Models.Records;
 
 namespace AllatBolt.Models.Manager
 {
-    class AllatokTabla
+    class AllatokTabla : DatabaseConnection
     {
         OracleConnection GetOracleConnection()
         {
             OracleConnection oc = new OracleConnection();
-            string connectionString = @"Data Source=193.225.33.71;User Id=ORA_S1340;Password=EKE2020;";
+            string connectionString = @"Data Source = 193.225.33.71;User Id = ORA_S1340;Password = EKE2020;";
             oc.ConnectionString = connectionString;
             return oc;
         }
@@ -21,29 +21,26 @@ namespace AllatBolt.Models.Manager
         public List<Allatok> Select()
         {
             List<Allatok> records = new List<Allatok>();
-            OracleConnection oc = new OracleConnection();
-            oc.Open();
-            OracleCommand command = new OracleCommand()
-            {
-                CommandType = System.Data.CommandType.Text,
-                CommandText = "SELECT a.idszam, a.faj, a.nem, a.etkezes, a.ar, b.nev FROM " +
-                " allatok a INNER JOIN boltok b ON b.id = a.bolt_id"
-            };
-            command.Connection = oc;
+            OracleCommand command = new OracleCommand();
+
+            command.Connection = connectionopen();
+            command.CommandType = System.Data.CommandType.Text;
+            command.CommandText = "SELECT idszam, faj, nem, etkezes, ar, bolt_id FROM allatok";
+
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 Allatok allat = new Allatok();
-                allat.Allat_id = reader["idszam"].ToString();
-                allat.Faj = reader["faj"].ToString();
-                allat.Nem = reader["nem"].ToString();
-                allat.Etkezes = reader["etkezes"].ToString();
-                allat.Ar = int.Parse(reader["ar"].ToString());
-                allat.Bolt = reader["nev"].ToString();
+                allat.idszam = (string)reader["idszam"];
+                allat.faj = (string)reader["faj"];
+                allat.nem = (string)reader["nem"];
+                allat.etkezes = (string)reader["etkezes"];
+                allat.ar = (string)reader["ar"];
+                allat.bolt_id = int.Parse(reader["bolt_id"].ToString());
 
                 records.Add(allat);
             }
-            oc.Close();
+            reader.Close();
             return records;
         }
 
@@ -56,15 +53,15 @@ namespace AllatBolt.Models.Manager
             OracleCommand command = new OracleCommand()
             {
                 CommandType = System.Data.CommandType.Text,
-                CommandText = "DELETE FROM allatok WHERE allat_id = :idszam"
+                CommandText = "DELETE FROM allatok WHERE idszam = :idszam"
             };
 
             OracleParameter idszamParameter = new OracleParameter()
             {
                 DbType = System.Data.DbType.String,
-                ParameterName = ":p_idszam",
+                ParameterName = ":idszam",
                 Direction = System.Data.ParameterDirection.Input,
-                Value = record.Allat_id
+                Value = record.idszam
             };
             command.Parameters.Add(idszamParameter);
 
@@ -86,91 +83,55 @@ namespace AllatBolt.Models.Manager
 
         public int Insert(Allatok record)
         {
-            OracleConnection oc = GetOracleConnection();
-            oc.Open();
+            OracleCommand command = new OracleCommand();
+            command.Connection = connectionopen();
+            command.CommandType = System.Data.CommandType.Text;
+            command.CommandText = "INSERT INTO allatok(idszam, faj, nem, etkezes, ar, bolt_id) VALUES(:idszam, :faj, :nem, :etkezes, :ar, :bolt_id)";
 
-            OracleTransaction ot = oc.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
-            OracleCommand command = new OracleCommand()
-            {
-                CommandType = System.Data.CommandType.StoredProcedure,
-                CommandText = "spInsert_allatok"
-            };
-            OracleParameter idszamParameter = new OracleParameter()
-            {
-                DbType = System.Data.DbType.String,
-                ParameterName = "p_idszam",
-                Direction = System.Data.ParameterDirection.Input,
-                Value = record.Allat_id
-            };
-            command.Parameters.Add(idszamParameter);
+            OracleParameter pidszam = new OracleParameter();
+            pidszam.ParameterName = ":idszam";
+            pidszam.OracleDbType = OracleDbType.Varchar2;
+            pidszam.Direction = System.Data.ParameterDirection.Input;
+            pidszam.Value = record.idszam;
 
-            OracleParameter fajParameter = new OracleParameter()
-            {
-                DbType = System.Data.DbType.String,
-                ParameterName = "p_faj",
-                Direction = System.Data.ParameterDirection.Input,
-                Value = record.Faj
-            };
-            command.Parameters.Add(fajParameter);
+            OracleParameter pfaj = new OracleParameter();
+            pfaj.ParameterName = ":faj";
+            pfaj.OracleDbType = OracleDbType.Varchar2;
+            pfaj.Direction = System.Data.ParameterDirection.Input;
+            pfaj.Value = record.faj;
 
-            OracleParameter nemParameter = new OracleParameter()
-            {
-                DbType = System.Data.DbType.String,
-                ParameterName = "p_nem",
-                Direction = System.Data.ParameterDirection.Input,
-                Value = record.Nem
-            };
-            command.Parameters.Add(nemParameter);
+            OracleParameter pnem = new OracleParameter();
+            pnem.ParameterName = ":nem";
+            pnem.OracleDbType = OracleDbType.Varchar2;
+            pnem.Direction = System.Data.ParameterDirection.Input;
+            pnem.Value = record.nem;
 
-            OracleParameter etkezesParameter = new OracleParameter()
-            {
-                DbType = System.Data.DbType.String,
-                ParameterName = "p_etkezes",
-                Direction = System.Data.ParameterDirection.Input,
-                Value = record.Etkezes
-            };
-            command.Parameters.Add(etkezesParameter);
+            OracleParameter petkezes = new OracleParameter();
+            petkezes.ParameterName = ":etkezes";
+            petkezes.OracleDbType = OracleDbType.Varchar2;
+            petkezes.Direction = System.Data.ParameterDirection.Input;
+            petkezes.Value = record.etkezes;
 
-            OracleParameter arParameter = new OracleParameter()
-            {
-                DbType = System.Data.DbType.String,
-                ParameterName = "p_ar",
-                Direction = System.Data.ParameterDirection.Input,
-                Value = record.Ar
-            };
-            command.Parameters.Add(arParameter);
+            OracleParameter par = new OracleParameter();
+            par.ParameterName = ":ar";
+            par.OracleDbType = OracleDbType.Varchar2;
+            par.Direction = System.Data.ParameterDirection.Input;
+            par.Value = record.ar;
 
-            OracleParameter boltParameter = new OracleParameter()
-            {
-                DbType = System.Data.DbType.String,
-                ParameterName = "p_bolt_nev",
-                Direction = System.Data.ParameterDirection.Input,
-                Value = record.Bolt
-            };
-            command.Parameters.Add(boltParameter);
+            OracleParameter pboltid = new OracleParameter();
+            pboltid.ParameterName = ":bolt_id";
+            pboltid.OracleDbType = OracleDbType.Long;
+            pboltid.Direction = System.Data.ParameterDirection.Input;
+            pboltid.Value = record.bolt_id;
 
-            OracleParameter rowcountParameter = new OracleParameter()
-            {
-                DbType = System.Data.DbType.Int32,
-                ParameterName = "p_out_rowcnt",
-                Direction = System.Data.ParameterDirection.Output
-            };
+            command.Parameters.Add(pidszam);
+            command.Parameters.Add(pfaj);
+            command.Parameters.Add(pnem);
+            command.Parameters.Add(petkezes);
+            command.Parameters.Add(par);
+            command.Parameters.Add(pboltid);
 
-            command.Connection = oc;
-            command.Transaction = ot;
-
-            try
-            {
-                command.ExecuteNonQuery();
-                int affectedRows = int.Parse(rowcountParameter.Value.ToString());
-                ot.Commit();
-                return affectedRows;
-            }
-            catch(Exception)
-            {
-                ot.Rollback();
-                return 0;
-            }
+            return command.ExecuteNonQuery();
         }
 
         public bool CheckIdszam(string idszam)
