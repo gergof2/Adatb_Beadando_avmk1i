@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bolt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bolt.Designer.cs">
+      <DependentUpon>Bolt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Etkezes.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -59,9 +65,13 @@
     <Compile Include="Models\Manager\AllatokTabla.cs" />
     <Compile Include="Models\Manager\DatabaseConnection.cs" />
     <Compile Include="Models\Records\Allatok.cs" />
+    <Compile Include="Models\Records\Boltok.cs" />
     <Compile Include="Nem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Bolt.resx">
+      <DependentUpon>Bolt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

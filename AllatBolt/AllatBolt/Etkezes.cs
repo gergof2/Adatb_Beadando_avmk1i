@@ -8,8 +8,8 @@ namespace AllatBolt
 {
     enum Etkezes
     {
-        NOVENYEVO,
-        HUSEVO,
-        MINDENEVO
+        Növényevő,
+        Húsevő,
+        Mindenevő
     }
 }

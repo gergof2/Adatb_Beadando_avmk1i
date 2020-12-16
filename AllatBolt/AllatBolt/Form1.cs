@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Oracle.ManagedDataAccess.Client;
 
 namespace AllatBolt
 {
@@ -39,34 +40,44 @@ namespace AllatBolt
             MessageBox.Show(string.Format("{0} sor lett törölve!", ToroltSorok));
             if (ToroltSorok != 0)
                 bgWorker.RunWorkerAsync();
+            UpdateDgv_allatok();
         }
 
         private void b_insert_Click(object sender, EventArgs e)
         {
-            Allatok allat = new Allatok();
-            allat.idszam = tb_id.Text.ToString();
-            allat.faj = tb_faj.Text.ToString();
-            allat.nem = cb_nem.SelectedItem.ToString();
-            allat.etkezes = cb_etkezes.SelectedItem.ToString();
-            allat.ar = tb_ar.Text.ToString();
-            allat.bolt_id = int.Parse(tb_bolt.Text);
+            try
+            {
+                Allatok allat = new Allatok();
+                allat.idszam = tb_id.Text.ToString();
+                allat.faj = tb_faj.Text.ToString();
+                allat.nem = cb_nem.SelectedItem.ToString();
+                allat.etkezes = cb_etkezes.SelectedItem.ToString();
+                allat.ar = tb_ar.Text.ToString();
+                allat.bolt_id = int.Parse(tb_bolt.Text);
 
-            tablaManager.Insert(allat);
-            bgWorker.RunWorkerAsync();
+                tablaManager.Insert(allat);
+                bgWorker.RunWorkerAsync();
 
-            MessageBox.Show("Sikeres feltöltés!");
-            tb_id.Clear();
-            tb_faj.Clear();
-            tb_ar.Clear();
-            tb_bolt.Clear();
+                MessageBox.Show("Sikeres feltöltés!");
+                UpdateDgv_allatok();
+                tb_id.Clear();
+                tb_faj.Clear();
+                tb_ar.Clear();
+                tb_bolt.Clear();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+      
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
             bgWorker.WorkerSupportsCancellation = true;
             cb_nem.DataSource = Enum.GetValues(typeof(Nem));
             cb_etkezes.DataSource = Enum.GetValues(typeof(Etkezes));
-
             
             InitDataGridView();
             UpdateDgv_allatok();
@@ -164,6 +175,12 @@ namespace AllatBolt
         private void b_frissit_Click(object sender, EventArgs e)
         {
             UpdateDgv_allatok();
+        }
+
+        private void b_boltok_Click(object sender, EventArgs e)
+        {
+            Bolt bolt = new Bolt();
+            bolt.ShowDialog();
         }
     }
 }

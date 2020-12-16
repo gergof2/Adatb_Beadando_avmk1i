@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AllatBolt.Models.Manager;
 
 namespace AllatBolt.Models.Records
 {
@@ -16,8 +17,10 @@ namespace AllatBolt.Models.Records
             {
                 if (value == null)
                     throw new Exception("Az id nem lehet üres!");
-                else if (value.Length != 4)
-                    throw new ArgumentOutOfRangeException("Az id-nek 4 karakterből kell állnia!");
+                if (value.Length != 4)
+                    throw new Exception("Az id-nek 4 karakterből kell állnia!");
+                if (VanBetu(value))
+                    throw new Exception("Csak számot tartalmazhat az ID!");
                 _idszam = value;
             }
         }
@@ -30,7 +33,9 @@ namespace AllatBolt.Models.Records
             {
                 if (value == null)
                     throw new Exception("Nem lehet üres a mező!");
-                else if (value.Length > 200)
+                if (VanSzam(value))
+                    throw new Exception("A faj nem tartalmazhat számot!");
+                if (value.Length > 200)
                     throw new ArgumentOutOfRangeException("A faj maximum 200 karakter hosszú lehet!");
                 _faj = value;
             }
@@ -42,10 +47,6 @@ namespace AllatBolt.Models.Records
             get { return _nem; }
             set
             {
-                if (value == null)
-                    throw new Exception("Nem lehet üres a mező!");
-                else if (value.Length > 20)
-                    throw new ArgumentOutOfRangeException("A nem max 20 karakterből állhat!");
                 _nem = value;
             }
         }
@@ -55,11 +56,7 @@ namespace AllatBolt.Models.Records
         {
             get { return _etkezes; }
             set
-            {
-                if (value == null)
-                    throw new Exception("A mező nem lehet üres!");
-                else if (value.Length > 20)
-                    throw new ArgumentOutOfRangeException("Az étkezés mező maximum 20 karakterből állhat!");
+            {               
                 _etkezes = value;
             }
         }
@@ -72,6 +69,8 @@ namespace AllatBolt.Models.Records
             {
                 if (value.Length == 0)
                     throw new Exception("Nincs ingyen elvihető állat!");
+                if (VanBetu(value))
+                    throw new Exception("Csak számot tartalmazhat az Ár!");
                 _ar = value;
             }
         }
@@ -82,8 +81,26 @@ namespace AllatBolt.Models.Records
             get { return _bolt_id; }
             set
             {
+                if (value < 0 || value >= 4)
+                {
+                    throw new Exception("3 bolt van az adatbázisban!");
+                }
                 _bolt_id = value;
             }
+        }
+        public bool VanSzam(string betu)
+        {
+            foreach (char a in betu)
+                if (int.TryParse(a.ToString(), out _))
+                    return true;
+            return false;
+        }
+        public bool VanBetu(string betu)
+        {
+            foreach (char a in betu)
+                if (!int.TryParse(a.ToString(), out _))
+                    return true;
+            return false;
         }
     }
 }

@@ -10,3 +10,4 @@ C:\Users\Tacha\Desktop\Adatb_Beadando_avmk1i\AllatBolt\AllatBolt\obj\Debug\Allat
 C:\Users\Tacha\Desktop\Adatb_Beadando_avmk1i\AllatBolt\AllatBolt\obj\Debug\AllatBolt.csproj.CopyComplete
 C:\Users\Tacha\Desktop\Adatb_Beadando_avmk1i\AllatBolt\AllatBolt\obj\Debug\AllatBolt.exe
 C:\Users\Tacha\Desktop\Adatb_Beadando_avmk1i\AllatBolt\AllatBolt\obj\Debug\AllatBolt.pdb
+C:\Users\Tacha\Desktop\Adatb_Beadando_avmk1i\AllatBolt\AllatBolt\obj\Debug\AllatBolt.Bolt.resources

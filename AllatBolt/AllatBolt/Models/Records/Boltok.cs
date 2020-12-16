@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AllatBolt
+namespace AllatBolt.Models.Records
 {
-    enum Nem
+    class Boltok
     {
-        Hím,
-        Nőstény,
-        Hímnős
+        public int id { get; set; }
+        public string nev { get; set; }
+
     }
 }

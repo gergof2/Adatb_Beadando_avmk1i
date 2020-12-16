@@ -45,6 +45,7 @@ namespace AllatBolt
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.b_frissit = new System.Windows.Forms.Button();
+            this.b_boltok = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_allatok)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,7 +75,6 @@ namespace AllatBolt
             this.tb_id.Name = "tb_id";
             this.tb_id.Size = new System.Drawing.Size(153, 20);
             this.tb_id.TabIndex = 4;
-            this.tb_id.Text = "ID";
             // 
             // tb_faj
             // 
@@ -82,7 +82,6 @@ namespace AllatBolt
             this.tb_faj.Name = "tb_faj";
             this.tb_faj.Size = new System.Drawing.Size(153, 20);
             this.tb_faj.TabIndex = 5;
-            this.tb_faj.Text = "Fajta";
             // 
             // tb_ar
             // 
@@ -90,7 +89,6 @@ namespace AllatBolt
             this.tb_ar.Name = "tb_ar";
             this.tb_ar.Size = new System.Drawing.Size(152, 20);
             this.tb_ar.TabIndex = 8;
-            this.tb_ar.Text = "Ár";
             // 
             // tb_bolt
             // 
@@ -98,7 +96,6 @@ namespace AllatBolt
             this.tb_bolt.Name = "tb_bolt";
             this.tb_bolt.Size = new System.Drawing.Size(152, 20);
             this.tb_bolt.TabIndex = 9;
-            this.tb_bolt.Text = "Melyik bolt? (ID)";
             // 
             // cb_nem
             // 
@@ -190,11 +187,22 @@ namespace AllatBolt
             this.b_frissit.UseVisualStyleBackColor = true;
             this.b_frissit.Click += new System.EventHandler(this.b_frissit_Click);
             // 
+            // b_boltok
+            // 
+            this.b_boltok.Location = new System.Drawing.Point(32, 436);
+            this.b_boltok.Name = "b_boltok";
+            this.b_boltok.Size = new System.Drawing.Size(115, 30);
+            this.b_boltok.TabIndex = 19;
+            this.b_boltok.Text = "Boltok";
+            this.b_boltok.UseVisualStyleBackColor = true;
+            this.b_boltok.Click += new System.EventHandler(this.b_boltok_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(670, 437);
+            this.ClientSize = new System.Drawing.Size(670, 478);
+            this.Controls.Add(this.b_boltok);
             this.Controls.Add(this.b_frissit);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -237,6 +245,7 @@ namespace AllatBolt
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button b_frissit;
+        private System.Windows.Forms.Button b_boltok;
     }
 }
 

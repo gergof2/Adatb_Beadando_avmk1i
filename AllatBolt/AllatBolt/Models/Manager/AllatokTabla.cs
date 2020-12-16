@@ -18,6 +18,27 @@ namespace AllatBolt.Models.Manager
             return oc;
         }
 
+        public List<Boltok> BoltSelect()
+        {
+            List<Boltok> records = new List<Boltok>();
+            OracleCommand command = new OracleCommand();
+
+            command.Connection = connectionopen();
+            command.CommandType = System.Data.CommandType.Text;
+            command.CommandText = "SELECT id, nev FROM boltok";
+            OracleDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                Boltok bolt = new Boltok();
+                bolt.id = int.Parse(reader["id"].ToString());
+                bolt.nev = (string)reader["nev"];
+
+                records.Add(bolt);
+            }
+            reader.Close();
+            return records;
+        }
+
         public List<Allatok> Select()
         {
             List<Allatok> records = new List<Allatok>();

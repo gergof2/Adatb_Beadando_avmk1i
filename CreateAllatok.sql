@@ -10,7 +10,7 @@ create table allatok
 	bolt_id int not null,
 
 	constraint pk_allatok primary key(idszam),
-	constraint ch_nem check(nem in ('HIM', 'NOSTENY', 'HIMNOS')),
-	constraint ch_etkezes check(etkezes in ('NOVENYEVO', 'HUSEVO', 'MINDENEVO')),
+	constraint ch_nem check(nem in ('Hím', 'Nőstény', 'Hímnős')),
+	constraint ch_etkezes check(etkezes in ('Növényevő', 'Húsevő', 'Mindenevő')),
 	constraint fk_boltok foreign key(bolt_id) references boltok(id)
 );
